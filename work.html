@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workouts & Training Plans | Matthew Thomas Fitness</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 5%;
+            --foreground: 0 0% 95%;
+            --primary: 0 72% 55%;
+            --secondary: 0 0% 10%;
+            --muted: 0 0% 40%;
+            --border: 0 0% 20%;
+        }
+        
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .font-body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+        
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: hsl(var(--foreground));
+            border: 1px solid hsl(var(--border));
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            border-color: hsl(var(--primary));
+            color: hsl(var(--primary));
+            transform: translateY(-2px);
+        }
+        
+        .section-padding {
+            padding: 6rem 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .section-padding {
+                padding: 8rem 1.5rem;
+            }
+        }
+        
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .workout-card {
+            background: linear-gradient(145deg, hsl(0, 0%, 10%), hsl(0, 0%, 7%));
+            border: 1px solid hsl(var(--border));
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .workout-card:hover {
+            border-color: hsl(var(--primary));
+            transform: translateY(-5px);
+        }
+        
+        .workout-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .workout-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .exercise-item {
+            padding: 1rem;
+            border-bottom: 1px solid hsl(var(--border));
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-item:hover {
+            background: hsl(var(--primary)/0.1);
+            border-left: 3px solid hsl(var(--primary));
+        }
+        
+        .exercise-item:last-child {
+            border-bottom: none;
+        }
+        
+        .difficulty-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .difficulty-beginner {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+        
+        .difficulty-intermediate {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+        }
+        
+        .difficulty-advanced {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+            color: white;
+        }
+        
+        .type-badge {
+            padding: 0.25rem 0.75rem;
+            border: 1px solid hsl(var(--primary));
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: hsl(var(--primary));
+        }
+        
+        .program-card {
+            background: linear-gradient(145deg, hsl(0, 0%, 12%), hsl(0, 0%, 8%));
+            border: 1px solid hsl(var(--border));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, hsl(var(--primary)/0.05), transparent);
+            transform: translateX(-100%);
+        }
+        
+        .program-card:hover::before {
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .feature-bullet {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .feature-bullet::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: hsl(var(--primary));
+            font-weight: bold;
+        }
+        
+        .workout-schedule {
+            border: 1px solid hsl(var(--border));
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .schedule-day {
+            padding: 1rem;
+            border-bottom: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-day:hover {
+            background: hsl(var(--primary)/0.1);
+        }
+        
+        .schedule-day.active {
+            background: hsl(var(--primary)/0.2);
+            border-left: 3px solid hsl(var(--primary));
+        }
+        
+        .schedule-day:last-child {
+            border-bottom: none;
+        }
+        
+        .day-number {
+            width: 36px;
+            height: 36px;
+            background: hsl(var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .download-btn {
+            background: transparent;
+            border: 1px solid hsl(var(--border));
+            color: hsl(var(--foreground));
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .download-btn:hover {
+            border-color: hsl(var(--primary));
+            color: hsl(var(--primary));
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-[hsl(0,0%,5%)]">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[hsl(0,0%,5%)]/90 backdrop-blur-lg border-b border-[hsl(0,0%,20%)]">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="font-display text-2xl font-bold tracking-wider">
+                <span class="text-gradient">MT</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex items-center gap-8">
+                <li>
+                    <a href="index.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="workouts.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,72%,55%)]">
+                        Workouts
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#gallery" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuToggle" class="md:hidden text-[hsl(0,0%,95%)] p-2" aria-label="Toggle menu">
+                <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden bg-[hsl(0,0%,5%)]/95 backdrop-blur-lg border-b border-[hsl(0,0%,20%)] hidden">
+            <ul class="flex flex-col items-center py-8 gap-6">
+                <li>
+                    <a href="index.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="workouts.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,72%,55%)]">
+                        Workouts
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#gallery" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="contact.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[hsl(0,72%,55%,0.1)] via-transparent to-transparent"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase mb-6 leading-tight">
+                    Build Your <span class="text-gradient">Strength</span>
+                </h1>
+                <p class="font-body text-xl md:text-2xl text-[hsl(0,0%,40%)] max-w-3xl mx-auto leading-relaxed">
+                    Professional workout programs designed to transform your body and mind. 
+                    From beginner basics to advanced routines.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workout Programs -->
+    <!-- <section class="section-padding bg-[hsl(0,0%,7%)]">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Training Programs
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Choose Your <span class="text-gradient">Program</span>
+                </h2>
+                <p class="font-body text-lg text-[hsl(0,0%,70%)] max-w-2xl mx-auto leading-relaxed">
+                    Select the perfect program for your goals, experience level, and available equipment.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+               
+                <div class="program-card p-8 fade-in">
+                    <div class="text-center mb-8">
+                        <span class="difficulty-badge difficulty-beginner inline-block mb-4">Beginner</span>
+                        <h3 class="font-display text-3xl mb-4">Foundation Builder</h3>
+                        <p class="font-body text-[hsl(0,0%,70%)]">
+                            Perfect for those starting their fitness journey
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            12-week progressive program
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            3-4 workouts per week
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Full-body routines
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Video exercise demonstrations
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Form and technique focus
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="#beginner-workout" class="btn-primary w-full">
+                            View Program
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="program-card p-8 fade-in" style="transition-delay: 0.1s">
+                    <div class="text-center mb-8">
+                        <span class="difficulty-badge difficulty-intermediate inline-block mb-4">Intermediate</span>
+                        <h3 class="font-display text-3xl mb-4">Muscle & Strength</h3>
+                        <p class="font-body text-[hsl(0,0%,70%)]">
+                            For those with 6+ months of consistent training
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            16-week hypertrophy program
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            4-5 workouts per week
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Split routines (Push/Pull/Legs)
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Progressive overload guidance
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Accessory exercise library
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="#intermediate-workout" class="btn-primary w-full">
+                            View Program
+                        </a>
+                    </div>
+                </div>
+                
+                
+                <div class="program-card p-8 fade-in" style="transition-delay: 0.2s">
+                    <div class="text-center mb-8">
+                        <span class="difficulty-badge difficulty-advanced inline-block mb-4">Advanced</span>
+                        <h3 class="font-display text-3xl mb-4">Peak Performance</h3>
+                        <p class="font-body text-[hsl(0,0%,70%)]">
+                            For experienced lifters seeking maximum results
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            20-week advanced program
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            5-6 workouts per week
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Specialized splits (Arnold, DC, etc.)
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Periodization strategies
+                        </div>
+                        <div class="feature-bullet font-body text-[hsl(0,0%,70%)]">
+                            Competition prep options
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="#advanced-workout" class="btn-primary w-full">
+                            View Program
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Featured Workout: Beginner -->
+    <section class="section-padding" id="beginner-workout">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Free Sample Workout
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Beginner <span class="text-gradient">Foundation</span>
+                </h2>
+                <p class="font-body text-lg text-[hsl(0,0%,70%)] max-w-2xl mx-auto leading-relaxed">
+                    A complete full-body workout perfect for starting your fitness journey.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Workout Details -->
+                <div class="fade-in">
+                    <div class="workout-card p-8 mb-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="font-display text-2xl mb-2">Full Body Foundation</h3>
+                                <div class="flex items-center gap-3">
+                                    <span class="type-badge">Gym or Home</span>
+                                    <span class="type-badge">60 minutes</span>
+                                </div>
+                            </div>
+                            <span class="difficulty-badge difficulty-beginner">Beginner</span>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h4 class="font-display text-lg mb-4 text-[hsl(0,72%,55%)]">Workout Structure:</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-body">Warm-up</span>
+                                    <span class="font-body font-semibold">10 minutes</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-body">Main Workout</span>
+                                    <span class="font-body font-semibold">45 minutes</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-body">Cool-down</span>
+                                    <span class="font-body font-semibold">5 minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h4 class="font-display text-lg mb-4 text-[hsl(0,72%,55%)]">Equipment Needed:</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-[hsl(0,0%,15%)] rounded text-sm">Dumbbells</span>
+                                <span class="px-3 py-1 bg-[hsl(0,0%,15%)] rounded text-sm">Barbell</span>
+                                <span class="px-3 py-1 bg-[hsl(0,0%,15%)] rounded text-sm">Bench</span>
+                                <span class="px-3 py-1 bg-[hsl(0,0%,15%)] rounded text-sm">Pull-up Bar</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="downloadWorkout('beginner')" class="download-btn w-full justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Download PDF Workout
+                        </button>
+                    </div>
+                    
+                    <!-- Tips -->
+                    <div class="workout-card p-8">
+                        <h4 class="font-display text-xl mb-4">Coach's Tips:</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[hsl(0,72%,55%)] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="font-body text-[hsl(0,0%,70%)]">Focus on form over weight - quality reps build quality muscle</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[hsl(0,72%,55%)] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="font-body text-[hsl(0,0%,70%)]">Rest 60-90 seconds between sets</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-[hsl(0,72%,55%)] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="font-body text-[hsl(0,0%,70%)]">Perform this workout 3 times per week with rest days in between</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Exercise List -->
+                <div class="fade-in" style="transition-delay: 0.2s">
+                    <div class="workout-card overflow-hidden">
+                        <div class="p-8 border-b border-[hsl(var(--border))]">
+                            <h4 class="font-display text-xl mb-2">Exercise List</h4>
+                            <p class="font-body text-[hsl(0,0%,70%)] text-sm">
+                                3 sets of 8-12 reps for each exercise (unless specified)
+                            </p>
+                        </div>
+                        
+                        <div class="divide-y divide-[hsl(var(--border))]">
+                            <!-- Exercise 1 -->
+                            <div class="exercise-item">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h5 class="font-display text-lg">Barbell Squats</h5>
+                                        <p class="font-body text-sm text-[hsl(0,0%,60%)]">Legs & Glutes</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-[hsl(0,72%,55%,0.2)] text-[hsl(0,72%,55%)] text-sm rounded">Compound</span>
+                                </div>
+                                <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                                    Keep chest up, back straight, descend until thighs are parallel to floor
+                                </p>
+                            </div>
+                            
+                            <!-- Exercise 2 -->
+                            <div class="exercise-item">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h5 class="font-display text-lg">Bench Press</h5>
+                                        <p class="font-body text-sm text-[hsl(0,0%,60%)]">Chest & Triceps</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-[hsl(0,72%,55%,0.2)] text-[hsl(0,72%,55%)] text-sm rounded">Compound</span>
+                                </div>
+                                <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                                    Keep shoulder blades retracted, lower bar to mid-chest
+                                </p>
+                            </div>
+                            
+                            <!-- Exercise 3 -->
+                            <div class="exercise-item">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h5 class="font-display text-lg">Bent-over Rows</h5>
+                                        <p class="font-body text-sm text-[hsl(0,0%,60%)]">Back & Biceps</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-[hsl(0,72%,55%,0.2)] text-[hsl(0,72%,55%)] text-sm rounded">Compound</span>
+                                </div>
+                                <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                                    Keep back flat, pull weight to lower chest
+                                </p>
+                            </div>
+                            
+                            <!-- Exercise 4 -->
+                            <div class="exercise-item">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h5 class="font-display text-lg">Overhead Press</h5>
+                                        <p class="font-body text-sm text-[hsl(0,0%,60%)]">Shoulders</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-[hsl(0,72%,55%,0.2)] text-[hsl(0,72%,55%)] text-sm rounded">Compound</span>
+                                </div>
+                                <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                                    Press weight overhead without arching lower back
+                                </p>
+                            </div>
+                            
+                            <!-- Exercise 5 -->
+                            <div class="exercise-item">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h5 class="font-display text-lg">Planks</h5>
+                                        <p class="font-body text-sm text-[hsl(0,0%,60%)]">Core</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded">Bodyweight</span>
+                                </div>
+                                <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                                    3 sets of 30-60 seconds. Keep body in straight line
+                                </p>
+                            </div>
+                            
+                            <!-- Exercise 6 -->
+                            <div class="exercise-item">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h5 class="font-display text-lg">Bicep Curls</h5>
+                                        <p class="font-body text-sm text-[hsl(0,0%,60%)]">Arms</p>
+                                    </div>
+                                    <span class="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded">Isolation</span>
+                                </div>
+                                <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                                    Keep elbows pinned to sides, curl without swinging
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-8 border-t border-[hsl(var(--border))]">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-body text-sm text-[hsl(0,0%,60%)]">Total Exercises</p>
+                                    <p class="font-display text-2xl">6</p>
+                                </div>
+                                <div>
+                                    <p class="font-body text-sm text-[hsl(0,0%,60%)]">Total Sets</p>
+                                    <p class="font-display text-2xl">18</p>
+                                </div>
+                                <div>
+                                    <p class="font-body text-sm text-[hsl(0,0%,60%)]">Est. Duration</p>
+                                    <p class="font-display text-2xl">60 min</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workout Schedule -->
+    <section class="section-padding bg-[hsl(0,0%,7%)]">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Weekly Structure
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Sample <span class="text-gradient">Schedule</span>
+                </h2>
+                <p class="font-body text-lg text-[hsl(0,0%,70%)] max-w-2xl mx-auto leading-relaxed">
+                    A typical week in the intermediate muscle-building program
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto fade-in" style="transition-delay: 0.2s">
+                <div class="workout-schedule">
+                    <!-- Monday -->
+                    <div class="schedule-day active">
+                        <div class="day-number">1</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Monday: Push Day</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Chest, Shoulders, Triceps</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Tuesday -->
+                    <div class="schedule-day">
+                        <div class="day-number">2</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Tuesday: Pull Day</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Back, Biceps, Rear Delts</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Wednesday -->
+                    <div class="schedule-day">
+                        <div class="day-number">3</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Wednesday: Leg Day</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Quads, Hamstrings, Glutes, Calves</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Thursday -->
+                    <div class="schedule-day">
+                        <div class="day-number">4</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Thursday: Active Recovery</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Light cardio, stretching, mobility work</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Friday -->
+                    <div class="schedule-day">
+                        <div class="day-number">5</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Friday: Upper Body</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Compound movements focusing on strength</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Saturday -->
+                    <div class="schedule-day">
+                        <div class="day-number">6</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Saturday: Lower Body</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Strength focus with accessory work</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                    
+                    <!-- Sunday -->
+                    <div class="schedule-day">
+                        <div class="day-number">7</div>
+                        <div class="flex-1">
+                            <h4 class="font-display text-lg">Sunday: Complete Rest</h4>
+                            <p class="font-body text-sm text-[hsl(0,0%,60%)]">Recovery and nutrition focus</p>
+                        </div>
+                        <svg class="w-6 h-6 text-[hsl(0,72%,55%)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center fade-in" style="transition-delay: 0.3s">
+                    <p class="font-body text-lg text-[hsl(0,0%,70%)] mb-8 max-w-2xl mx-auto leading-relaxed">
+                        Each program includes detailed warm-ups, exercise alternatives, 
+                        progression strategies, and recovery protocols.
+                    </p>
+                    <a href="contact.html" class="btn-primary">
+                        Get Custom Program
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Guide -->
+    <section class="section-padding">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Equipment Guide
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Home Gym <span class="text-gradient">Essentials</span>
+                </h2>
+                <p class="font-body text-lg text-[hsl(0,0%,70%)] max-w-2xl mx-auto leading-relaxed">
+                    Build an effective home gym without breaking the bank
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="workout-card p-6 text-center fade-in">
+                    <div class="text-[hsl(0,72%,55%)] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl mb-3">Adjustable Dumbbells</h3>
+                    <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                        Space-efficient solution for progressive overload
+                    </p>
+                </div>
+                
+                <div class="workout-card p-6 text-center fade-in" style="transition-delay: 0.1s">
+                    <div class="text-[hsl(0,72%,55%)] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl mb-3">Resistance Bands</h3>
+                    <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                        Portable, versatile, and excellent for joint health
+                    </p>
+                </div>
+                
+                <div class="workout-card p-6 text-center fade-in" style="transition-delay: 0.2s">
+                    <div class="text-[hsl(0,72%,55%)] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl mb-3">Pull-up Bar</h3>
+                    <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                        Essential for back development and upper body strength
+                    </p>
+                </div>
+                
+                <div class="workout-card p-6 text-center fade-in" style="transition-delay: 0.3s">
+                    <div class="text-[hsl(0,72%,55%)] mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl mb-3">Yoga Mat</h3>
+                    <p class="font-body text-sm text-[hsl(0,0%,70%)]">
+                        For floor exercises, stretching, and core work
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-12 max-w-3xl mx-auto text-center fade-in" style="transition-delay: 0.4s">
+                <div class="workout-card p-8">
+                    <h3 class="font-display text-2xl mb-4">No Equipment? No Problem!</h3>
+                    <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed mb-6">
+                        Every program includes bodyweight alternatives. You can build an 
+                        impressive physique with just your body weight, creativity, and consistency.
+                    </p>
+                    <button onclick="downloadBodyweightWorkout()" class="download-btn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Download Bodyweight Program
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding bg-[hsl(0,0%,7%)]">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Common Questions
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Workout <span class="text-gradient">FAQ</span>
+                </h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4 fade-in" style="transition-delay: 0.2s">
+                <!-- FAQ Item 1 -->
+                <div class="workout-card">
+                    <button class="w-full p-6 text-left flex justify-between items-center" onclick="toggleWorkoutFAQ(1)">
+                        <span class="font-display text-lg">How often should I change my workout routine?</span>
+                        <svg id="workoutFaqIcon1" class="w-5 h-5 text-[hsl(0,72%,55%)] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="workoutFaqContent1" class="px-6 pb-6 hidden">
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                            Generally, stick with a program for 8-12 weeks before making significant changes. 
+                            Your body needs consistency to adapt and grow. However, you should be implementing 
+                            progressive overload (increasing weight, reps, or sets) within that program. 
+                            Small variations in exercises can be made every 4-6 weeks to keep things fresh.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="workout-card">
+                    <button class="w-full p-6 text-left flex justify-between items-center" onclick="toggleWorkoutFAQ(2)">
+                        <span class="font-display text-lg">How long should my workouts be?</span>
+                        <svg id="workoutFaqIcon2" class="w-5 h-5 text-[hsl(0,72%,55%)] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="workoutFaqContent2" class="px-6 pb-6 hidden">
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                            Quality over quantity! An effective workout should take 45-75 minutes. 
+                            Beginners can see great results with 3-4 sessions of 45 minutes each week. 
+                            Advanced lifters might need 5-6 sessions of 60-75 minutes. The key is 
+                            intensity and focus during your training time.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="workout-card">
+                    <button class="w-full p-6 text-left flex justify-between items-center" onclick="toggleWorkoutFAQ(3)">
+                        <span class="font-display text-lg">Should I do cardio with weight training?</span>
+                        <svg id="workoutFaqIcon3" class="w-5 h-5 text-[hsl(0,72%,55%)] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="workoutFaqContent3" class="px-6 pb-6 hidden">
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                            Yes, but strategically. For muscle building: do cardio on separate days or 
+                            after weight training. For fat loss: incorporate 2-4 sessions of moderate 
+                            cardio per week. For general health: include both. Avoid intense cardio 
+                            right before heavy lifting sessions as it can fatigue your muscles.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="workout-card">
+                    <button class="w-full p-6 text-left flex justify-between items-center" onclick="toggleWorkoutFAQ(4)">
+                        <span class="font-display text-lg">How important is rest between sets?</span>
+                        <svg id="workoutFaqIcon4" class="w-5 h-5 text-[hsl(0,72%,55%)] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="workoutFaqContent4" class="px-6 pb-6 hidden">
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                            Extremely important! Rest periods allow your muscles to recover enough 
+                            to maintain performance on subsequent sets. General guidelines:
+                            • Strength training: 2-5 minutes
+                            • Hypertrophy (muscle building): 60-90 seconds
+                            • Endurance: 30-60 seconds
+                            Listen to your body and adjust based on your goals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in" style="transition-delay: 0.3s">
+                <p class="font-body text-[hsl(0,0%,70%)]">
+                    Have more questions about workouts? 
+                    <a href="contact.html" class="text-[hsl(0,72%,55%)] hover:underline">Contact me</a> 
+                    for personalized advice.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-[hsl(0,72%,55%,0.1)] to-transparent"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Ready To <span class="text-gradient">Transform</span>?
+                </h2>
+                <p class="font-body text-xl text-[hsl(0,0%,70%)] mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Get a personalized workout program designed specifically for your goals, 
+                    experience level, and available equipment.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="contact.html" class="btn-primary">
+                        Get Custom Program
+                    </a>
+                    <button onclick="downloadAllWorkouts()" class="btn-outline">
+                        Download All Sample Workouts
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-[hsl(0,0%,20%)]">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo -->
+                <a href="index.html" class="font-display text-3xl font-bold tracking-wider">
+                    <span class="text-gradient">MT</span>
+                </a>
+
+                <!-- Social Icons -->
+                <div class="flex items-center gap-6">
+                    <a href="https://instagram.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <circle cx="18" cy="6" r="1" fill="currentColor"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Copyright -->
+                <p class="text-[hsl(0,0%,40%)] text-sm font-body">
+                    © <span id="currentYear"></span> Matthew Thomas. All rights reserved.
+                </p>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="mt-8 pt-8 border-t border-[hsl(var(--border))]">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="flex flex-wrap gap-6 justify-center">
+                        <a href="index.html" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            Home
+                        </a>
+                        <a href="about.html" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            About
+                        </a>
+                        <a href="workouts.html" class="font-body text-sm text-[hsl(0,72%,55%)]">
+                            Workouts
+                        </a>
+                        <a href="index.html#gallery" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            Gallery
+                        </a>
+                        <a href="contact.html" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            Contact
+                        </a>
+                    </div>
+                    <p class="font-body text-xs text-[hsl(0,0%,40%)] text-center">
+                        Train smart. Train hard. Transform.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-100px',
+            threshold: 0.1
+        });
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 50) {
+                navbar.classList.add('bg-[hsl(0,0%,5%)]/90', 'backdrop-blur-lg', 'border-b', 'border-[hsl(0,0%,20%)]');
+            } else {
+                navbar.classList.remove('bg-[hsl(0,0%,5%)]/90', 'backdrop-blur-lg', 'border-b', 'border-[hsl(0,0%,20%)]');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // FAQ Toggle Function
+        function toggleWorkoutFAQ(number) {
+            const content = document.getElementById(`workoutFaqContent${number}`);
+            const icon = document.getElementById(`workoutFaqIcon${number}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Schedule day click effect
+        document.querySelectorAll('.schedule-day').forEach(day => {
+            day.addEventListener('click', function() {
+                document.querySelectorAll('.schedule-day').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Download functions (simulated)
+        function downloadWorkout(level) {
+            alert(`Downloading ${level} workout PDF...\n\nIn a real implementation, this would trigger a file download. For now, you can contact me for the full program!`);
+        }
+
+        function downloadBodyweightWorkout() {
+            alert(`Downloading Bodyweight Program PDF...\n\nComplete bodyweight workout program sent to your email!`);
+        }
+
+        function downloadAllWorkouts() {
+            alert(`Downloading All Sample Workouts...\n\nAll three workout programs (Beginner, Intermediate, Advanced) sent to your email!`);
+        }
+
+        // Schedule day interactions
+        document.querySelectorAll('.schedule-day').forEach((day, index) => {
+            day.addEventListener('click', function() {
+                // Remove active class from all days
+                document.querySelectorAll('.schedule-day').forEach(d => {
+                    d.classList.remove('active');
+                });
+                
+                // Add active class to clicked day
+                this.classList.add('active');
+                
+                // You could add functionality to show workout details for that day
+                const days = [
+                    "Push Day: Focus on chest, shoulders, and triceps with compound movements.",
+                    "Pull Day: Target back, biceps, and rear delts with pulling exercises.",
+                    "Leg Day: Work quads, hamstrings, glutes, and calves with heavy lifts.",
+                    "Active Recovery: Light cardio, stretching, and mobility work for recovery.",
+                    "Upper Body Strength: Focus on heavy compound lifts for strength gains.",
+                    "Lower Body Accessory: Target weak points and add volume to lower body.",
+                    "Complete Rest: Focus on nutrition, hydration, and mental recovery."
+                ];
+                
+                // Optional: Show a modal or update a section with the day's details
+                console.log(`Selected: ${days[index]}`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matthew Thomas - Fitness & Motivation</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 5%;
+            --foreground: 0 0% 95%;
+            --primary: 0 72% 55%;
+            --secondary: 0 0% 10%;
+            --muted: 0 0% 40%;
+            --border: 0 0% 20%;
+        }
+        
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .font-body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+        
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: hsl(var(--foreground));
+            border: 1px solid hsl(var(--border));
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            border-color: hsl(var(--primary));
+            color: hsl(var(--primary));
+            transform: translateY(-2px);
+        }
+        
+        .section-padding {
+            padding: 8rem 1.5rem;
+        }
+        
+        .animate-pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, 0) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, 0) scale(1.1); }
+        }
+        
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+        
+        .mobile-menu-enter {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu-enter-active {
+            opacity: 1;
+            max-height: 500px;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+        
+        .mobile-menu-exit {
+            opacity: 1;
+            max-height: 500px;
+        }
+        
+        .mobile-menu-exit-active {
+            opacity: 0;
+            max-height: 0;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .image-zoom {
+            transition: transform 0.7s ease;
+        }
+        
+        .group:hover .image-zoom {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-[hsl(0,0%,5%)]">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-hidden bg-[hsl(0,0%,5%)]/90 backdrop-blur-lg border-b border-[hsl(0,0%,20%)]">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#home" class="font-display text-2xl font-bold tracking-wider">
+                <span class="text-gradient">MT</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex items-center gap-8">
+                <li>
+                    <a href="#home" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        About
+                    </a>
+                </li>
+
+                 <li>
+                    <a href="work.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Workouts
+                    </a>
+                </li>
+                <li>
+                    <a href="#gallery" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="#connect" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Connect
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuToggle" class="md:hidden text-[hsl(0,0%,95%)] p-2" aria-label="Toggle menu">
+                <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden bg-[hsl(0,0%,5%)]/95 backdrop-blur-lg border-b border-[hsl(0,0%,20%)] mobile-menu-enter">
+            <ul class="flex flex-col items-center py-8 gap-6">
+                <li>
+                    <a href="#home" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300 mobile-nav-link">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300 mobile-nav-link">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="work.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300 mobile-nav-link">
+                       workouts
+                    </a>
+                </li>
+                <li>
+                    <a href="#gallery" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300 mobile-nav-link">
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="#connect" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300 mobile-nav-link">
+                        Connect
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <!-- Fitness background image from Unsplash -->
+            <img 
+                src="WhatsApp Image 2026-01-07 at 03.18.24.jpeg" 
+                alt="Fitness background"
+                class="w-full h-full object-cover object-center"
+            >
+            <div class="absolute inset-0 bg-gradient-to-br from-[hsl(0,72%,55%,0.2)] via-[hsl(0,0%,5%,0.8)] to-[hsl(0,0%,5%)]"></div>
+            <div class="absolute inset-0 bg-[hsl(0,0%,5%)]/40"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.3em] text-sm md:text-base mb-4 fade-in-up">
+                    Fitness • Motivation • Lifestyle
+                </p>
+
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase leading-none mb-6 fade-in-up" style="transition-delay: 0.2s">
+                    Matthew
+                    <br>
+                    <span class="text-gradient glow-text">Thomas</span>
+                </h1>
+
+                <p class="font-body text-[hsl(0,0%,40%)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed fade-in-up" style="transition-delay: 0.4s">
+                    Transform your body. Elevate your mind. Become the best version of yourself.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up" style="transition-delay: 0.6s">
+                    <a href="#about" class="btn-primary">
+                        <span>Discover More</span>
+                    </a>
+                    <a href="#connect" class="btn-outline">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#about" class="absolute bottom-10 left-1/2 -translate-x-1/2 text-[hsl(0,72%,55%)] animate-pulse-glow">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-[hsl(0,0%,10%,0.3)]">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Image -->
+                <div class="relative fade-in-left">
+                    <div class="relative overflow-hidden">
+                        <!-- Fitness trainer portrait from Unsplash -->
+                        <img 
+                            src="WhatsApp Image 2026-01-07 at 04.22.47.jpeg" 
+                            alt="Matthew Thomas - Fitness Trainer"
+                            class="w-full h-[600px] object-cover object-center"
+                        >
+                        <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, hsl(0 0% 5%) 0%, transparent 30%)"></div>
+                    </div>
+                    <!-- Decorative accent -->
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 border-2 border-[hsl(0,72%,55%)] -z-10"></div>
+                </div>
+
+                <!-- Content -->
+                <div class="fade-in-right" style="transition-delay: 0.2s">
+                    <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                        About Me
+                    </p>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-6">
+                        Building Champions,
+                        <br>
+                        <span class="text-gradient">One Rep at a Time</span>
+                    </h2>
+                    <div class="space-y-4 text-[hsl(0,0%,40%)] font-body leading-relaxed mb-8">
+                        <p>
+                            I'm Matthew Thomas — fitness enthusiast, physique athlete, and
+                            motivational content creator dedicated to helping you unlock
+                            your full potential.
+                        </p>
+                        <p>
+                            With over a decade of experience in strength training and
+                            personal development, I've made it my mission to inspire
+                            millions to embrace the grind, push past their limits, and
+                            transform not just their bodies, but their entire lives.
+                        </p>
+                        <p>
+                            My journey started in a small garage gym with nothing but
+                            determination. Today, I'm privileged to share that same fire
+                            with a community of half a million warriors who refuse to
+                            settle for average.
+                        </p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center fade-in-up" style="transition-delay: 0.4s">
+                            <svg class="w-6 h-6 text-[hsl(0,72%,55%)] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                            </svg>
+                            <p class="font-display text-2xl md:text-3xl text-[hsl(0,0%,95%)]">70K+</p>
+                            <p class="text-xs uppercase tracking-wider text-[hsl(0,0%,40%)]">Followers</p>
+                        </div>
+                        <div class="text-center fade-in-up" style="transition-delay: 0.5s">
+                            <svg class="w-6 h-6 text-[hsl(0,72%,55%)] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                            </svg>
+                            <p class="font-display text-2xl md:text-3xl text-[hsl(0,0%,95%)]">10+</p>
+                            <p class="text-xs uppercase tracking-wider text-[hsl(0,0%,40%)]">Years Training</p>
+                        </div>
+                        <div class="text-center fade-in-up" style="transition-delay: 0.6s">
+                            <svg class="w-6 h-6 text-[hsl(0,72%,55%)] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke-width="2"></circle>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path>
+                            </svg>
+                            <p class="font-display text-2xl md:text-3xl text-[hsl(0,0%,95%)]">1000+</p>
+                            <p class="text-xs uppercase tracking-wider text-[hsl(0,0%,40%)]">Lives Changed</p>
+                        </div>
+                        <div class="text-center fade-in-up" style="transition-delay: 0.7s">
+                            <svg class="w-6 h-6 text-[hsl(0,72%,55%)] mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                            </svg>
+                            <p class="font-display text-2xl md:text-3xl text-[hsl(0,0%,95%)]">100%</p>
+                            <p class="text-xs uppercase tracking-wider text-[hsl(0,0%,40%)]">Dedication</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mt-20  fade-in-up" style="transition-delay: 0.6s">
+                    <a href="about.html" class="btn-primary">
+                        <span>Learn More</span>
+                    </a>
+                    <!-- <a href="#connect" class="btn-outline">
+                        Get In Touch
+                    </a> -->
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-padding">
+        <div class="container mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-16 fade-in-up">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Gallery
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase">
+                    Captured <span class="text-gradient">Moments</span>
+                </h2>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Image 1: Training Session -->
+                <div class="group relative overflow-hidden fade-in-up" style="transition-delay: 0.1s">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img 
+                            src="WhatsApp Image 2026-01-07 at 04.22.51.jpeg" 
+                            alt="Training Session - The Grind"
+                            class="w-full h-full object-cover image-zoom"
+                        >
+                    </div>
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[hsl(0,0%,5%)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-[hsl(0,72%,55%)] text-sm uppercase tracking-wider">01</p>
+                            <h3 class="font-display text-2xl uppercase">The Grind</h3>
+                        </div>
+                    </div>
+                    <!-- Border accent -->
+                    <div class="absolute inset-0 border border-[hsl(0,72%,55%,0)] group-hover:border-[hsl(0,72%,55%,0.5)] transition-all duration-300 pointer-events-none"></div>
+                </div>
+
+                <!-- Image 2: Physique -->
+                <div class="group relative overflow-hidden fade-in-up" style="transition-delay: 0.2s">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img 
+                            src="WhatsApp Image 2026-01-07 at 04.31.39.jpeg" 
+                            alt="Physique - The Result"
+                            class="w-full h-full object-cover image-zoom"
+                        >
+                    </div>
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[hsl(0,0%,5%)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-[hsl(0,72%,55%)] text-sm uppercase tracking-wider">02</p>
+                            <h3 class="font-display text-2xl uppercase">The Result</h3>
+                        </div>
+                    </div>
+                    <!-- Border accent -->
+                    <div class="absolute inset-0 border border-[hsl(0,72%,55%,0)] group-hover:border-[hsl(0,72%,55%,0.5)] transition-all duration-300 pointer-events-none"></div>
+                </div>
+
+                <!-- Image 3: Outdoor Training -->
+                <div class="group relative overflow-hidden fade-in-up" style="transition-delay: 0.3s">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img 
+                            src="WhatsApp Image 2026-01-07 at 04.31.36.jpeg" 
+                            alt="Outdoor Training - The Journey"
+                            class="w-full h-full object-cover image-zoom"
+                        >
+                    </div>
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[hsl(0,0%,5%)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-[hsl(0,72%,55%)] text-sm uppercase tracking-wider">03</p>
+                            <h3 class="font-display text-2xl uppercase">The Journey</h3>
+                        </div>
+                    </div>
+                    <!-- Border accent -->
+                    <div class="absolute inset-0 border border-[hsl(0,72%,55%,0)] group-hover:border-[hsl(0,72%,55%,0.5)] transition-all duration-300 pointer-events-none"></div>
+                </div>
+            </div>
+
+            <!-- Quote -->
+            <div class="mt-20 text-center max-w-3xl mx-auto fade-in-up" style="transition-delay: 0.5s">
+                <blockquote class="font-display text-2xl md:text-3xl lg:text-4xl uppercase leading-tight">
+                    "The only bad workout is the one that <span class="text-gradient">didn't happen.</span>"
+                </blockquote>
+                <p class="text-[hsl(0,0%,40%)] mt-4 tracking-wider">— Matthew Thomas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connect Section -->
+    <section id="connect" class="section-padding bg-[hsl(0,0%,10%,0.3)]">
+        <div class="container mx-auto">
+            <div class="max-w-2xl mx-auto text-center">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4 fade-in-up">
+                    Connect
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-6 fade-in-up" style="transition-delay: 0.2s">
+                    Let's <span class="text-gradient">Transform</span> Together
+                </h2>
+                <p class="text-[hsl(0,0%,40%)] text-lg mb-10 fade-in-up" style="transition-delay: 0.3s">
+                    Ready to start your fitness journey? Connect with me for training tips, motivation, and exclusive content.
+                </p>
+                
+                <!-- Social Links -->
+                <!-- <div class="flex justify-center gap-6 mb-10">
+                    <a href="https://instagram.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <circle cx="18" cy="6" r="1" fill="currentColor"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="text-[hsl(0,0%,40%)] hov
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                       
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                    </a>
+                </div> -->
+
+                <!-- Email Form -->
+                <form id="contactForm" class="space-y-4 fade-in-up" style="transition-delay: 0.4s">
+                    <!-- <input type="email" placeholder="Your Email" required class="w-full p-4 bg-[hsl(0,0%,10%)] border border-[hsl(0,0%,20%)] focus:border-[hsl(0,72%,55%)] outline-none transition-colors">
+                    <textarea placeholder="Your Message" rows="4" required class="w-full p-4 bg-[hsl(0,0%,10%)] border border-[hsl(0,0%,20%)] focus:border-[hsl(0,72%,55%)] outline-none transition-colors"></textarea> -->
+                    <!-- <button type="submit" class="btn-primary w-full">
+                        Send Message
+                    </button> -->
+                    <a type="submit" class="btn-primary w-full" href="contact.html">Contact us</a>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-[hsl(0,0%,20%)]">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo -->
+                <a href="#home" class="font-display text-3xl font-bold tracking-wider">
+                    <span class="text-gradient">MT</span>
+                </a>
+
+                <!-- Social Icons -->
+                <!-- <div class="flex items-center gap-6">
+                    <a href="https://instagram.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"></rect>
+                            <circle cx="12" cy="12" r="4" stroke-width="2"></circle>
+                            <circle cx="18" cy="6" r="1" fill="currentColor"></circle>
+                        </svg>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" class="text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                        </svg>
+                    </a>
+                </div> -->
+
+                <!-- Copyright -->
+                <p class="text-[hsl(0,0%,40%)] text-sm font-body">
+                    © <span id="currentYear"></span> Matthew Thomas. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Navbar scroll effect
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        let isMobileMenuOpen = false;
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const menuIcon = document.getElementById('menuIcon');
+
+        // Show navbar initially
+        setTimeout(() => {
+            navbar.classList.remove('nav-hidden');
+        }, 100);
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add/remove scrolled class
+            if (scrollTop > 50) {
+                navbar.classList.add('bg-[hsl(0,0%,5%)]/90', 'backdrop-blur-lg', 'border-b', 'border-[hsl(0,0%,20%)]');
+            } else {
+                navbar.classList.remove('bg-[hsl(0,0%,5%)]/90', 'backdrop-blur-lg', 'border-b', 'border-[hsl(0,0%,20%)]');
+            }
+            
+            // Hide/show navbar on scroll
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                navbar.classList.add('nav-hidden');
+            } else {
+                // Scrolling up
+                navbar.classList.remove('nav-hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', () => {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            if (isMobileMenuOpen) {
+                mobileMenu.classList.remove('mobile-menu-enter');
+                mobileMenu.classList.add('mobile-menu-enter-active');
+                // Change icon to X
+                menuIcon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            } else {
+                mobileMenu.classList.remove('mobile-menu-enter-active');
+                mobileMenu.classList.add('mobile-menu-enter');
+                // Change icon to menu
+                menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isMobileMenuOpen = false;
+                mobileMenu.classList.remove('mobile-menu-enter-active');
+                mobileMenu.classList.add('mobile-menu-enter');
+                menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '-100px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Trigger initial animations for hero section
+        setTimeout(() => {
+            document.querySelectorAll('#home .fade-in-up').forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * 200);
+            });
+        }, 300);
+    </script>
+</body>
+</html>

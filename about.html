@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Matthew Thomas - Fitness & Lifestyle</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 5%;
+            --foreground: 0 0% 95%;
+            --primary: 0 72% 55%;
+            --secondary: 0 0% 10%;
+            --muted: 0 0% 40%;
+            --border: 0 0% 20%;
+        }
+        
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .font-body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+        }
+        
+        .section-padding {
+            padding: 6rem 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .section-padding {
+                padding: 8rem 1.5rem;
+            }
+        }
+        
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: hsl(var(--primary));
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 16px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: hsl(var(--primary));
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, hsl(0, 0%, 10%), hsl(0, 0%, 7%));
+            border: 1px solid hsl(var(--border));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, hsl(0, 72%, 55%), hsl(20, 85%, 60%));
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, hsl(0, 0%, 12%), hsl(0, 0%, 8%));
+            border: 1px solid hsl(var(--border));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, hsl(var(--primary)/0.1), transparent);
+            transform: translateX(-100%);
+        }
+        
+        .stat-card:hover::before {
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .quote-mark {
+            font-size: 5rem;
+            line-height: 1;
+            color: hsl(var(--primary));
+            opacity: 0.2;
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .military-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            z-index: 10;
+        }
+        
+        .veteran-ribbon {
+            background: linear-gradient(90deg, #C62D42, #DAA520, #0D47A1);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .values-list li {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .values-list li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: hsl(var(--primary));
+        }
+    </style>
+</head>
+<body class="bg-[hsl(0,0%,5%)]">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[hsl(0,0%,5%)]/90 backdrop-blur-lg border-b border-[hsl(0,0%,20%)]">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="font-display text-2xl font-bold tracking-wider">
+                <span class="text-gradient">MT</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex items-center gap-8">
+                <li>
+                    <a href="index.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,72%,55%)]">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="work.html" class="font-body text-sm uppercase tracking-widest text-[hsl(0,72%,55%)]">
+                        workouts
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#gallery" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#connect" class="font-body text-sm uppercase tracking-widest text-[hsl(0,0%,40%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Connect
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="programs.html" class="btn-primary text-sm px-6 py-2">
+                        Programs
+                    </a>
+                </li> -->
+            </ul>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuToggle" class="md:hidden text-[hsl(0,0%,95%)] p-2" aria-label="Toggle menu">
+                <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden bg-[hsl(0,0%,5%)]/95 backdrop-blur-lg border-b border-[hsl(0,0%,20%)] hidden">
+            <ul class="flex flex-col items-center py-8 gap-6">
+                <li>
+                    <a href="index.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="about.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,72%,55%)]">
+                        About
+                    </a>
+                </li>
+               <li>
+                    <a href="work.html" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        workouts
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#gallery" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Gallery
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#connect" class="font-body text-lg uppercase tracking-widest text-[hsl(0,0%,95%)] hover:text-[hsl(0,72%,55%)] transition-colors duration-300">
+                        Connect
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="programs.html" class="btn-primary text-sm px-6 py-2">
+                        Programs
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="pt-32 pb-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[hsl(0,72%,55%,0.1)] via-transparent to-transparent"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <div class="veteran-ribbon mx-auto mb-6">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L9 12 2 12 8 17 5 22 12 17 19 22 16 17 22 12 15 12z"/>
+                    </svg>
+                    U.S. Army Veteran
+                </div>
+                <h1 class="font-display text-5xl md:text-7xl lg:text-8xl uppercase mb-6 leading-tight">
+                    The <span class="text-gradient">Journey</span>
+                </h1>
+                <p class="font-body text-xl md:text-2xl text-[hsl(0,0%,40%)] max-w-3xl mx-auto leading-relaxed">
+                    From military service to inspiring millions. This is my story of discipline, transformation, and purpose.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Story -->
+    <section class="section-padding bg-[hsl(0,0%,7%)]">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="relative fade-in">
+                    <div class="military-badge">
+                        <span class="text-white font-bold text-xs text-center">U.S. ARMY<br>VETERAN</span>
+                    </div>
+                    <img 
+                        src="WhatsApp Image 2026-01-07 at 04.22.45.jpeg" 
+                        alt="Matthew Thomas - U.S. Army Veteran"
+                        class="w-full h-auto rounded-lg shadow-2xl"
+                    >
+                    <div class="mt-6 p-6 border border-[hsl(var(--border))] bg-[hsl(0,0%,10%)]">
+                        <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-widest text-sm mb-2">
+                            Service to Strength
+                        </p>
+                        <p class="font-body text-[hsl(0,0%,70%)]">
+                            "The discipline I learned in the Army became the foundation of my fitness philosophy."
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="fade-in" style="transition-delay: 0.2s">
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                        From <span class="text-gradient">Service</span> to Strength
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="pb-6 border-b border-[hsl(var(--border))]">
+                            <h3 class="font-display text-2xl text-[hsl(0,0%,95%)] mb-3">Service & Sacrifice</h3>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                As a proud U.S. Army veteran, I served my country with honor and distinction. 
+                                My military service taught me invaluable lessons about discipline, resilience, 
+                                and the true meaning of strength. The structure and physical demands of Army 
+                                life laid the foundation for everything that followed.
+                            </p>
+                        </div>
+                        
+                        <div class="pb-6 border-b border-[hsl(var(--border))]">
+                            <h3 class="font-display text-2xl text-[hsl(0,0%,95%)] mb-3">The Transition to Fitness</h3>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                After completing my service, I struggled to find the same sense of purpose 
+                                and camaraderie in civilian life. Walking into a gym became my new mission. 
+                                I discovered that the discipline I learned in the Army translated perfectly 
+                                to fitness - showing up every day, pushing through discomfort, and always 
+                                striving for improvement.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-display text-2xl text-[hsl(0,0%,95%)] mb-3">The New Mission</h3>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                Today, my mission is to help veterans and civilians alike discover their 
+                                strength. I combine military-grade discipline with evidence-based training 
+                                to help people transform not just their bodies, but their entire lives. 
+                                It's about building mental toughness, physical resilience, and the confidence 
+                                to overcome any challenge.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Military Values -->
+                    <div class="mt-8 p-6 border border-[hsl(var(--border))] bg-[hsl(0,0%,10%)]">
+                        <h4 class="font-display text-xl mb-4 text-[hsl(0,72%,55%)]">Core Values from Service:</h4>
+                        <ul class="values-list space-y-3 text-[hsl(0,0%,70%)]">
+                            <li><span class="font-semibold">Discipline:</span> Showing up when you don't want to</li>
+                            <li><span class="font-semibold">Resilience:</span> Getting back up after setbacks</li>
+                            <li><span class="font-semibold">Teamwork:</span> We rise together as a community</li>
+                            <li><span class="font-semibold">Integrity:</span> Honesty in every rep, every day</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Military Service Section -->
+    <section class="section-padding relative bg-gradient-to-r from-[#0d47a1]/20 to-[#c62d42]/20">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=10')] bg-cover bg-center opacity-10"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Military Service
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Service <span class="text-gradient">Shapes</span> Character
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div class="testimonial-card p-6 fade-in">
+                        <div class="text-blue-400 mb-4">
+                            <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-xl mb-3">Discipline</h3>
+                        <p class="font-body text-[hsl(0,0%,70%)] text-sm">
+                            The Army taught me that true discipline is doing what needs to be done, even when no one is watching.
+                        </p>
+                    </div>
+                    
+                    <div class="testimonial-card p-6 fade-in" style="transition-delay: 0.1s">
+                        <div class="text-red-400 mb-4">
+                            <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2h2v2h-2V4zm5 15H8V9h8v10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-xl mb-3">Structure</h3>
+                        <p class="font-body text-[hsl(0,0%,70%)] text-sm">
+                            Military structure gave me the framework to build successful training programs and systems.
+                        </p>
+                    </div>
+                    
+                    <div class="testimonial-card p-6 fade-in" style="transition-delay: 0.2s">
+                        <div class="text-yellow-400 mb-4">
+                            <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L9 12 2 12 8 17 5 22 12 17 19 22 16 17 22 12 15 12z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-xl mb-3">Honor</h3>
+                        <p class="font-body text-[hsl(0,0%,70%)] text-sm">
+                            Serving with honor taught me to approach every client with integrity and respect.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="max-w-2xl mx-auto fade-in" style="transition-delay: 0.3s">
+                    <blockquote class="font-display text-2xl italic text-white leading-relaxed">
+                        "The Army didn't just teach me how to be strong - it taught me what strength is for. 
+                        Now I use that strength to help others build better lives."
+                    </blockquote>
+                    <div class="mt-6 flex items-center justify-center gap-4">
+                        <div class="w-12 h-12 bg-gradient rounded-full"></div>
+                        <div class="text-left">
+                            <p class="font-body text-white">Sgt. Matthew Thomas</p>
+                            <p class="font-body text-sm text-white/70">U.S. Army Veteran</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section-padding relative">
+        <div class="absolute inset-0 bg-[url('WhatsApp Image 2026-01-07 at 04.22.47.jpeg')] bg-cover bg-center opacity-5"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Journey Timeline
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase">
+                    The <span class="text-gradient">Evolution</span>
+                </h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- Timeline -->
+                <div class="relative pl-12 md:pl-20">
+                    <!-- 2008 - Military Service -->
+                    <div class="timeline-item relative pb-12 fade-in">
+                        <div class="bg-gradient-to-r from-blue-900/80 to-red-900/80 border border-blue-500 p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-white text-blue-900 px-4 py-1 text-sm font-body uppercase tracking-widest font-bold">2008-2012</span>
+                                <h3 class="font-display text-2xl text-white">U.S. Army Service</h3>
+                            </div>
+                            <p class="font-body text-white/90 leading-relaxed">
+                                Served with honor in the United States Army. Developed discipline, leadership, 
+                                and resilience that would become the foundation of my fitness philosophy. 
+                                Learned that true strength is both physical and mental.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2012 -->
+                    <div class="timeline-item relative pb-12 fade-in" style="transition-delay: 0.1s">
+                        <div class="bg-[hsl(0,0%,10%)] border border-[hsl(var(--border))] p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-gradient px-4 py-1 text-sm font-body uppercase tracking-widest">2012</span>
+                                <h3 class="font-display text-2xl">The Beginning</h3>
+                            </div>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                Transitioned from military to civilian fitness. First competition: placed last in 
+                                regional physique show. The loss fueled my determination, applying military discipline to training.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2014 -->
+                    <div class="timeline-item relative pb-12 fade-in" style="transition-delay: 0.2s">
+                        <div class="bg-[hsl(0,0%,10%)] border border-[hsl(var(--border))] p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-gradient px-4 py-1 text-sm font-body uppercase tracking-widest">2014</span>
+                                <h3 class="font-display text-2xl">First Success</h3>
+                            </div>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                Won first physique competition. Started personal training certification. 
+                                Began coaching fellow veterans and civilians, discovering my passion for teaching.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2016 -->
+                    <div class="timeline-item relative pb-12 fade-in" style="transition-delay: 0.3s">
+                        <div class="bg-[hsl(0,0%,10%)] border border-[hsl(var(--border))] p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-gradient px-4 py-1 text-sm font-body uppercase tracking-widest">2016</span>
+                                <h3 class="font-display text-2xl">Going Digital</h3>
+                            </div>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                Started YouTube channel sharing training tips. First viral video: 
+                                "From Service to Strength" reached 46.7K views. Quit day job to pursue fitness full-time.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2018 -->
+                    <div class="timeline-item relative pb-12 fade-in" style="transition-delay: 0.4s">
+                        <div class="bg-[hsl(0,0%,10%)] border border-[hsl(var(--border))] p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-gradient px-4 py-1 text-sm font-body uppercase tracking-widest">2018</span>
+                                <h3 class="font-display text-2xl">Community Building</h3>
+                            </div>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                Launched veteran-focused online coaching program. Reached 46.7K YouTube subscribers. 
+                                Started "MT Transformations" - a community platform for members.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 2020 -->
+                    <div class="timeline-item relative pb-12 fade-in" style="transition-delay: 0.5s">
+                        <div class="bg-[hsl(0,0%,10%)] border border-[hsl(var(--border))] p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-gradient px-4 py-1 text-sm font-body uppercase tracking-widest">2020</span>
+                                <h3 class="font-display text-2xl">Global Impact</h3>
+                            </div>
+                            <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                                Featured in Military Times' "Veterans Making a Difference" and Fitness Magazine's "Top 30 Under 30."
+                                Started veteran mentorship program.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Present -->
+                    <div class="timeline-item relative fade-in" style="transition-delay: 0.6s">
+                        <div class="bg-gradient p-6 rounded-lg">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="bg-black/30 px-4 py-1 text-sm font-body uppercase tracking-widest text-white">Present</span>
+                                <h3 class="font-display text-2xl text-white">Today & Beyond</h3>
+                            </div>
+                            <p class="font-body text-white/90 leading-relaxed">
+                                Coaching 50,000+ clients worldwide. Building veteran fitness programs and the "MT Academy". 
+                                Working on first book: "Battle Ready: From Service to Strength."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="section-padding bg-[hsl(0,0%,7%)]">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    My Approach
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase">
+                    Military-Inspired <span class="text-gradient">Philosophy</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Principle 1 -->
+                <div class="testimonial-card p-8 fade-in">
+                    <div class="text-blue-400 mb-6">
+                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L9 12 2 12 8 17 5 22 12 17 19 22 16 17 22 12 15 12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl mb-4">Discipline = Freedom</h3>
+                    <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                        The Army taught me that discipline isn't restriction - it's the path to true freedom. 
+                        Consistent effort creates habits that build unstoppable momentum and lasting results.
+                    </p>
+                </div>
+                
+                <!-- Principle 2 -->
+                <div class="testimonial-card p-8 fade-in" style="transition-delay: 0.1s">
+                    <div class="text-red-400 mb-6">
+                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 6h-2V3c0-.55-.45-1-1-1h-4c-.55 0-1 .45-1 1v3H7c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl mb-4">Mission-Focused Training</h3>
+                    <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                        Every workout has a purpose. Just like military operations, we plan, execute, 
+                        and adapt. Your fitness journey is your mission - we approach it with strategy and intent.
+                    </p>
+                </div>
+                
+                <!-- Principle 3 -->
+                <div class="testimonial-card p-8 fade-in" style="transition-delay: 0.2s">
+                    <div class="text-yellow-400 mb-6">
+                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-2xl mb-4">Leave No One Behind</h3>
+                    <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed">
+                        We rise together. My community isn't just followers - they're family. 
+                        Accountability, support, and shared growth create unstoppable momentum.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Quote -->
+            <div class="max-w-4xl mx-auto mt-20 text-center fade-in" style="transition-delay: 0.3s">
+                <div class="relative">
+                    <div class="quote-mark">"</div>
+                    <blockquote class="font-display text-2xl md:text-3xl lg:text-4xl uppercase leading-tight italic px-8">
+                        The Army taught me that strength isn't just about what you can lift - 
+                        it's about what you can overcome. Now I help others discover that same power within themselves.
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Impact -->
+    <section class="section-padding">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Impact
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase">
+                    By The <span class="text-gradient">Numbers</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="stat-card p-8 text-center fade-in">
+                    <p class="font-display text-4xl md:text-5xl text-[hsl(0,72%,55%)] mb-2">70K+</p>
+                    <p class="font-body uppercase tracking-wider text-[hsl(0,0%,70%)]">Followers Worldwide</p>
+                </div>
+                
+                <div class="stat-card p-8 text-center fade-in" style="transition-delay: 0.1s">
+                    <p class="font-display text-4xl md:text-5xl text-blue-400 mb-2">2,000+</p>
+                    <p class="font-body uppercase tracking-wider text-[hsl(0,0%,70%)]">Veterans Served</p>
+                </div>
+                
+                <div class="stat-card p-8 text-center fade-in" style="transition-delay: 0.2s">
+                    <p class="font-display text-4xl md:text-5xl text-[hsl(0,72%,55%)] mb-2">10+</p>
+                    <p class="font-body uppercase tracking-wider text-[hsl(0,0%,70%)]">Years of Service</p>
+                    <p class="font-body text-xs text-[hsl(0,0%,50%)]">Military + Fitness</p>
+                </div>
+                
+                <div class="stat-card p-8 text-center fade-in" style="transition-delay: 0.3s">
+                    <p class="font-display text-4xl md:text-5xl text-[hsl(0,72%,55%)] mb-2">50K+</p>
+                    <p class="font-body uppercase tracking-wider text-[hsl(0,0%,70%)]">Lives Transformed</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 max-w-3xl mx-auto text-center fade-in" style="transition-delay: 0.4s">
+                <p class="font-body text-lg text-[hsl(0,0%,70%)] leading-relaxed">
+                    These numbers represent more than just reach - they represent impact. From fellow veterans 
+                    finding purpose after service to civilians discovering their inner strength, every number 
+                    is a story of transformation. The true measure of success is in the lives changed.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Veteran Testimonials -->
+    <section class="section-padding bg-gradient-to-r from-blue-900/20 to-red-900/20">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <p class="text-blue-400 font-body uppercase tracking-[0.2em] text-sm mb-4">
+                    Veteran Community
+                </p>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase">
+                    Fellow <span class="text-gradient">Veterans</span> Speak
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-8 fade-in">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-red-500 rounded-full"></div>
+                        <div>
+                            <h4 class="font-display text-lg">Sgt. Michael R.</h4>
+                            <p class="font-body text-sm text-blue-300">U.S. Marine Corps Veteran</p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="quote-mark text-4xl">"</div>
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed italic">
+                            After struggling with the transition to civilian life, Matt's program gave me 
+                            structure and purpose again. He understands the military mindset like no other trainer.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-8 fade-in" style="transition-delay: 0.1s">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-yellow-500 rounded-full"></div>
+                        <div>
+                            <h4 class="font-display text-lg">SSG. Jessica L.</h4>
+                            <p class="font-body text-sm text-red-300">U.S. Army Veteran</p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="quote-mark text-4xl">"</div>
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed italic">
+                            The discipline I learned from Matt's program helped me overcome PTSD and anxiety. 
+                            Fitness became my therapy and gave me my confidence back.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-8 fade-in" style="transition-delay: 0.2s">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></div>
+                        <div>
+                            <h4 class="font-display text-lg">PO1. David K.</h4>
+                            <p class="font-body text-sm text-green-300">U.S. Navy Veteran</p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="quote-mark text-4xl">"</div>
+                        <p class="font-body text-[hsl(0,0%,70%)] leading-relaxed italic">
+                            Matt's military background makes all the difference. He gets what it means to serve 
+                            and how to translate that discipline into civilian success. Life-changing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 fade-in" style="transition-delay: 0.3s">
+                <div class="inline-flex items-center gap-3 bg-blue-900/50 border border-blue-700 px-6 py-4 rounded-lg">
+                    <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L9 12 2 12 8 17 5 22 12 17 19 22 16 17 22 12 15 12z"/>
+                    </svg>
+                    <div class="text-left">
+                        <p class="font-body text-white font-semibold">Veteran Discounts Available</p>
+                        <p class="font-body text-sm text-blue-200">Honoring those who served</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-padding relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0d47a1]/20 via-[#c62d42]/20 to-transparent"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-8">
+                    Ready For Your <span class="text-gradient">Mission</span>?
+                </h2>
+                <p class="font-body text-xl text-[hsl(0,0%,70%)] mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Whether you're a veteran seeking purpose after service or a civilian ready for transformation, 
+                    let's build the strongest version of you - physically, mentally, and emotionally.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="contact.html" class="btn-primary">
+                        Start Your Journey
+                    </a>
+                    <a href="#veteran-programs" class="btn-outline border border-blue-700 text-blue-300 hover:border-blue-500 hover:text-blue-500 px-8 py-4 transition-colors duration-300 font-body uppercase tracking-widest">
+                        Veteran Programs
+                    </a>
+                </div>
+                <div class="mt-8">
+                    <p class="font-body text-sm text-[hsl(0,0%,60%)]">
+                        Special programs available for veterans, active duty, and first responders
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-[hsl(0,0%,20%)]">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo -->
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="font-display text-3xl font-bold tracking-wider">
+                        <span class="text-gradient">MT</span>
+                    </a>
+                    <div class="veteran-ribbon text-xs px-3 py-1">
+                        U.S. Army Veteran
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <p class="text-[hsl(0,0%,40%)] text-sm font-body">
+                    © <span id="currentYear"></span> Matthew Thomas. All rights reserved.
+                </p>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="mt-8 pt-8 border-t border-[hsl(var(--border))]">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="flex flex-wrap gap-6 justify-center">
+                        <a href="index.html" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            Home
+                        </a>
+                        <a href="about.html" class="font-body text-sm text-[hsl(0,72%,55%)]">
+                            About
+                        </a>
+                        <a href="index.html#gallery" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            Gallery
+                        </a>
+                        <a href="contact.html" class="font-body text-sm text-[hsl(0,0%,60%)] hover:text-[hsl(0,72%,55%)] transition-colors">
+                            Contact
+                        </a>
+                    </div>
+                    <p class="font-body text-xs text-[hsl(0,0%,40%)] text-center">
+                        Service. Strength. Transformation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-100px',
+            threshold: 0.1
+        });
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar scroll effect
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 50) {
+                navbar.classList.add('bg-[hsl(0,0%,5%)]/90', 'backdrop-blur-lg', 'border-b', 'border-[hsl(0,0%,20%)]');
+            } else {
+                navbar.classList.remove('bg-[hsl(0,0%,5%)]/90', 'backdrop-blur-lg', 'border-b', 'border-[hsl(0,0%,20%)]');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add btn-outline style (since it's referenced but not defined in this page)
+        const style = document.createElement('style');
+        style.textContent = `
+            .btn-outline {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem 2.5rem;
+                background: transparent;
+                color: hsl(var(--foreground));
+                border: 1px solid hsl(var(--border));
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                border-radius: 0;
+                transition: all 0.3s ease;
+            }
+            
+            .btn-outline:hover {
+                border-color: hsl(var(--primary));
+                color: hsl(var(--primary));
+                transform: translateY(-2px);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
