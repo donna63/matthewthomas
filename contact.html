@@ -863,115 +863,7 @@
         </div>
     </section>
 
-    <!-- Coaching Application Form -->
-    <!-- <section class="section-padding bg-[hsl(0,0%,7%)]" id="coaching-form">
-        <div class="container mx-auto">
-            <div class="max-w-4xl mx-auto text-center mb-12 fade-in">
-                <p class="text-[hsl(0,72%,55%)] font-body uppercase tracking-[0.2em] text-sm mb-4">
-                    Personal Coaching
-                </p>
-                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase mb-6">
-                    Transform <span class="text-gradient">Together</span>
-                </h2>
-                <p class="font-body text-lg text-[hsl(0,0%,70%)] max-w-2xl mx-auto leading-relaxed">
-                    Limited spots available. Complete this application to start your 1-on-1 coaching journey.
-                </p>
-            </div>
-            
-            <div class="max-w-3xl mx-auto fade-in" style="transition-delay: 0.2s">
-                <form id="coachingForm" class="space-y-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="form-label">Full Name *</label>
-                            <input type="text" name="fullName" required class="form-input">
-                        </div>
-                        <div>
-                            <label class="form-label">Age *</label>
-                            <input type="number" name="age" required class="form-input">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="form-label">Fitness Goals *</label>
-                        <select name="goals" required class="form-input">
-                            <option value="">Select your primary goal</option>
-                            <option value="weight-loss">Weight Loss</option>
-                            <option value="muscle-gain">Muscle Building</option>
-                            <option value="strength">Strength Training</option>
-                            <option value="toning">Body Toning</option>
-                            <option value="endurance">Endurance & Cardio</option>
-                            <option value="competition">Competition Prep</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label class="form-label">Current Fitness Level *</label>
-                        <div class="grid grid-cols-3 gap-4 mt-2">
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="radio" name="level" value="beginner" class="sr-only peer">
-                                <span class="w-full p-4 text-center border border-[hsl(var(--border))] peer-checked:border-[hsl(0,72%,55%)] peer-checked:bg-[hsl(0,72%,55%,0.1)] transition-all duration-300">
-                                    Beginner
-                                </span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="radio" name="level" value="intermediate" class="sr-only peer">
-                                <span class="w-full p-4 text-center border border-[hsl(var(--border))] peer-checked:border-[hsl(0,72%,55%)] peer-checked:bg-[hsl(0,72%,55%,0.1)] transition-all duration-300">
-                                    Intermediate
-                                </span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="radio" name="level" value="advanced" class="sr-only peer">
-                                <span class="w-full p-4 text-center border border-[hsl(var(--border))] peer-checked:border-[hsl(0,72%,55%)] peer-checked:bg-[hsl(0,72%,55%,0.1)] transition-all duration-300">
-                                    Advanced
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="form-label">Tell me about your journey *</label>
-                        <textarea name="journey" rows="4" required class="form-input" placeholder="What motivated you to seek coaching? What challenges have you faced?"></textarea>
-                    </div>
-                    
-                    <div>
-                        <label class="form-label">How did you hear about me? *</label>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" name="source[]" value="instagram" class="w-4 h-4">
-                                <span>Instagram</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" name="source[]" value="youtube" class="w-4 h-4">
-                                <span>YouTube</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" name="source[]" value="friend" class="w-4 h-4">
-                                <span>Friend</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer">
-                                <input type="checkbox" name="source[]" value="other" class="w-4 h-4">
-                                <span>Other</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary w-full">
-                        <span id="coachingSubmitText">Apply for Coaching</span>
-                        <div id="coachingLoadingSpinner" class="loading-spinner"></div>
-                    </button>
-                    
-                    <div id="coachingSuccessMessage" class="success-message">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            <p class="font-body">Application submitted! I'll review your details and contact you within 3-5 business days.</p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section> -->
+   
 
     <!-- FAQ -->
     <section class="section-padding bg-[hsl(0,0%,7%)]">
@@ -1497,6 +1389,28 @@ function openBookingModal(packageType, price) {
     document.body.style.overflow = 'hidden';
 }
 
+function closeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    
+    // Hide the modal
+    modal.classList.remove('active');
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+    
+    // Reset the form
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+        bookingForm.reset();
+    }
+    
+    // Hide any success message
+    const successMessage = document.getElementById('bookingSuccessMessage');
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+}
+
     // ========== ANIMATIONS ==========
     // Intersection Observer for animations
     const observer = new IntersectionObserver((entries) => {
@@ -1528,6 +1442,24 @@ function openBookingModal(packageType, price) {
         console.log('Website and EmailJS loaded successfully!');
         console.log('Make sure to update EMAILJS_CONFIG with your EmailJS IDs');
     });
+
+    // ========== MODAL CLOSE HANDLERS ==========
+// Close modal when clicking outside
+document.getElementById('bookingModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeBookingModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('bookingModal');
+        if (modal.classList.contains('active')) {
+            closeBookingModal();
+        }
+    }
+});
 </script>
 </body>
 </html>
